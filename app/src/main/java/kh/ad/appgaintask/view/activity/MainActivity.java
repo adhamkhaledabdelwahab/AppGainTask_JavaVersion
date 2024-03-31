@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
@@ -16,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import java.util.List;
 
 import kh.ad.appgaintask.R;
+import kh.ad.appgaintask.core.LogUtil;
 import kh.ad.appgaintask.core.api.MovieDetailsApiClient;
 import kh.ad.appgaintask.databinding.ActivityMainBinding;
 import kh.ad.appgaintask.model.models.MovieModel;
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements Animation.Animati
         } else {
             final Intent intent = new Intent(MainActivity.this, NoInternetActivity.class);
             Uri uri = getIntent().getData();
-            Log.d("MainActivity", "Uri: " + uri);
+            LogUtil.d("MainActivity", "Uri: " + uri);
             if (uri != null) {
                 List<String> parameters = uri.getPathSegments();
                 if (parameters.size() == 2) {
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements Animation.Animati
     private void afterAnimation() {
         Uri uri = getIntent().getData();
         if (uri != null) {
-            Log.d("MainActivity", "Uri: " + uri);
+            LogUtil.d("MainActivity", "Uri: " + uri);
             List<String> parameters = uri.getPathSegments();
             if (parameters.size() == 2) {
                 MovieDetailsApiClient instance = MovieDetailsApiClient.getInstance();

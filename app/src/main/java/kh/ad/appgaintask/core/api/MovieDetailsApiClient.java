@@ -10,6 +10,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 import kh.ad.appgaintask.core.AppExecutors;
+import kh.ad.appgaintask.core.LogUtil;
 import kh.ad.appgaintask.model.models.MovieModel;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -69,17 +70,17 @@ public class MovieDetailsApiClient {
                 if (cancelRequest) {
                     return;
                 }
-                Log.d("MovieDetails", "Headers: " + response.headers());
+                LogUtil.d("MovieDetails", "Headers: " + response.headers());
                 if (response.code() == 200) {
-                    Log.d("MovieDetails", "Response Body: " + response.body());
+                    LogUtil.d("MovieDetails", "Response Body: " + response.body());
                     assert response.body() != null;
                     MovieModel movie = response.body();
                     mMovieDetails.postValue(movie);
                 } else {
-                    Log.d("MovieDetails", "Response Error: " + response.errorBody());
+                    LogUtil.d("MovieDetails", "Response Error: " + response.errorBody());
                     assert response.errorBody() != null;
                     String error = response.errorBody().string();
-                    Log.v("Tag", "Error " + error);
+                    LogUtil.d("Tag", "Error " + error);
                     mMovieDetails.postValue(null);
                 }
             } catch (IOException e) {
@@ -97,7 +98,7 @@ public class MovieDetailsApiClient {
         }
 
         private void cancelRequest() {
-            Log.v("Tag", "Cancelling Search Request");
+            LogUtil.d("Tag", "Cancelling Search Request");
             cancelRequest = true;
         }
     }

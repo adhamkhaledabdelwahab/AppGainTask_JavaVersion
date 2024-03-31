@@ -12,6 +12,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 import kh.ad.appgaintask.core.AppExecutors;
+import kh.ad.appgaintask.core.LogUtil;
 import kh.ad.appgaintask.model.models.MovieModel;
 import kh.ad.appgaintask.model.response.MovieSearchResponse;
 import retrofit2.Call;
@@ -77,9 +78,9 @@ public class PopularMoviesApiClient {
                 if (cancelRequest) {
                     return;
                 }
-                Log.d("PopularMovies", "Headers: " + response.headers());
+                LogUtil.d("PopularMovies", "Headers: " + response.headers());
                 if (response.code() == 200) {
-                    Log.d("PopularMovies", "Response Body: " + response.body());
+                    LogUtil.d("PopularMovies", "Response Body: " + response.body());
                     assert response.body() != null;
                     List<MovieModel> list = new ArrayList<>(
                             response.body().getMovies());
@@ -92,10 +93,10 @@ public class PopularMoviesApiClient {
                         mMoviesPop.postValue(currentMovies);
                     }
                 } else {
-                    Log.d("PopularMovies", "Response Error: " + response.errorBody());
+                    LogUtil.d("PopularMovies", "Response Error: " + response.errorBody());
                     assert response.errorBody() != null;
                     String error = response.errorBody().string();
-                    Log.v("Tag", "Error " + error);
+                    LogUtil.d("Tag", "Error " + error);
                     mMoviesPop.postValue(null);
                 }
             } catch (IOException e) {
@@ -113,7 +114,7 @@ public class PopularMoviesApiClient {
         }
 
         private void cancelRequest() {
-            Log.v("Tag", "Cancelling Search Request");
+            LogUtil.d("Tag", "Cancelling Search Request");
             cancelRequest = true;
         }
     }

@@ -20,7 +20,7 @@ public class PushNotificationService extends FirebaseMessagingService {
     @Override
     public void onNewToken(@NonNull String token) {
         super.onNewToken(token);
-        Log.i("OnNewToken", token);
+        LogUtil.d("OnNewToken", token);
     }
 
     @Override
